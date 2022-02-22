@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Pieces/Piece.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/edison 3.png" type="Texture" id=2]
+
+[node name="Green" instance=ExtResource( 1 )]
+modulate = Color( 0, 1, 0, 1 )
+color = "Green"
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 2 )

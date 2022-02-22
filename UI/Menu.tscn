@@ -1,0 +1,114 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://UI/Menu.gd" type="Script" id=1]
+[ext_resource path="res://Assets/FFF_NEPSZA-BADSAG-Bold.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://Assets/Ignotum.otf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/blue fields (2).jpg" type="Texture" id=4]
+[ext_resource path="res://Assets/Music.ogg" type="AudioStream" id=5]
+[ext_resource path="res://UI/Music 2.gd" type="Script" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_top = 6
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 25
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 26
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shader" type="Sprite" parent="."]
+scale = Vector2( 0.62043, 0.697564 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="Background" type="ColorRect" parent="."]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 566.0
+margin_bottom = 482.0
+color = Color( 0, 0, 0, 0.52549 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_top = -20.0
+margin_right = 576.0
+margin_bottom = 492.0
+custom_fonts/font = SubResource( 1 )
+text = "Edison Quest"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Play" type="Button" parent="."]
+margin_left = 203.0
+margin_top = 525.0
+margin_right = 371.0
+margin_bottom = 594.0
+custom_fonts/font = SubResource( 2 )
+text = "Play"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="Button" parent="."]
+margin_left = 204.0
+margin_top = 600.0
+margin_right = 370.0
+margin_bottom = 668.0
+custom_fonts/font = SubResource( 3 )
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Music 2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -20.101
+autoplay = true
+script = ExtResource( 6 )
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 1.0
+margin_top = 295.0
+margin_right = 587.0
+margin_bottom = 448.0
+custom_fonts/font = SubResource( 4 )
+text = "This Game is based on a Joke we had while eating. 
+Created by Michael Betar
+(Permission was given by edison li for the use of
+his image in this game.)"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]

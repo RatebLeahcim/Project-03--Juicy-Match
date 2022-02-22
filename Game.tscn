@@ -1,0 +1,215 @@
+[gd_scene load_steps=27 format=2]
+
+[ext_resource path="res://Grid/grid.gd" type="Script" id=1]
+[ext_resource path="res://Pieces/Piece Background.tscn" type="PackedScene" id=2]
+[ext_resource path="res://UI/HUD.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Project_3.ogg" type="AudioStream" id=4]
+[ext_resource path="res://AudioStreamPlayer2D.gd" type="Script" id=5]
+[ext_resource path="res://Assets/1.wav" type="AudioStream" id=6]
+[ext_resource path="res://Assets/2.wav" type="AudioStream" id=7]
+[ext_resource path="res://Assets/neon city (2).jpg" type="Texture" id=8]
+[ext_resource path="res://Assets/noise.tres" type="Texture" id=9]
+[ext_resource path="res://Explosion.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Camera.gd" type="Script" id=11]
+[ext_resource path="res://Assets/Ignotum.otf" type="DynamicFontData" id=12]
+[ext_resource path="res://Assets/EDISUS_emote.png" type="Texture" id=13]
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=1]
+function = 1
+
+[sub_resource type="VisualShaderNodeScalarOp" id=2]
+default_input_values = [ 0, 0.0, 1, 0.5 ]
+operator = 2
+
+[sub_resource type="VisualShaderNodeTexture" id=3]
+texture = ExtResource( 8 )
+
+[sub_resource type="VisualShaderNodeColorConstant" id=4]
+constant = Color( 0.0778198, 0.156466, 0.796875, 1 )
+
+[sub_resource type="VisualShaderNodeVectorOp" id=5]
+
+[sub_resource type="VisualShaderNodeInput" id=6]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeTexture" id=7]
+texture = ExtResource( 9 )
+
+[sub_resource type="VisualShaderNodeScalarOp" id=8]
+operator = 1
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=9]
+function = 15
+
+[sub_resource type="VisualShaderNodeInput" id=10]
+input_name = "time"
+
+[sub_resource type="VisualShader" id=11]
+code = "shader_type canvas_item;
+uniform sampler2D tex_frg_2;
+uniform sampler2D tex_frg_6;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Color:3
+	vec3 n_out3p0 = vec3(0.077820, 0.156466, 0.796875);
+	float n_out3p1 = 1.000000;
+
+// Texture:2
+	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
+	vec3 n_out2p0 = tex_frg_2_read.rgb;
+	float n_out2p1 = tex_frg_2_read.a;
+
+// VectorOp:4
+	vec3 n_out4p0 = n_out3p0 + n_out2p0;
+
+// Input:5
+	vec3 n_out5p0 = vec3(UV, 0.0);
+
+// Texture:6
+	vec4 tex_frg_6_read = texture(tex_frg_6, n_out5p0.xy);
+	vec3 n_out6p0 = tex_frg_6_read.rgb;
+	float n_out6p1 = tex_frg_6_read.a;
+
+// Input:9
+	float n_out9p0 = TIME;
+
+// ScalarFunc:10
+	float n_out10p0 = cos(n_out9p0);
+
+// ScalarOp:11
+	float n_in11p1 = 0.50000;
+	float n_out11p0 = n_out10p0 * n_in11p1;
+
+// ScalarOp:7
+	float n_out7p0 = dot(n_out6p0, vec3(0.333333, 0.333333, 0.333333)) - n_out11p0;
+
+// ScalarFunc:8
+	float n_out8p0 = round(n_out7p0);
+
+// Output:0
+	COLOR.rgb = n_out4p0;
+	COLOR.a = n_out8p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2( 1120, 20 )
+nodes/fragment/2/node = SubResource( 3 )
+nodes/fragment/2/position = Vector2( 140, -40 )
+nodes/fragment/3/node = SubResource( 4 )
+nodes/fragment/3/position = Vector2( 474, -27 )
+nodes/fragment/4/node = SubResource( 5 )
+nodes/fragment/4/position = Vector2( 754, -8 )
+nodes/fragment/5/node = SubResource( 6 )
+nodes/fragment/5/position = Vector2( 200, 220 )
+nodes/fragment/6/node = SubResource( 7 )
+nodes/fragment/6/position = Vector2( 413, 205 )
+nodes/fragment/7/node = SubResource( 8 )
+nodes/fragment/7/position = Vector2( 694, 212 )
+nodes/fragment/8/node = SubResource( 9 )
+nodes/fragment/8/position = Vector2( 900, 200 )
+nodes/fragment/9/node = SubResource( 10 )
+nodes/fragment/9/position = Vector2( 220, 480 )
+nodes/fragment/10/node = SubResource( 1 )
+nodes/fragment/10/position = Vector2( 420, 480 )
+nodes/fragment/11/node = SubResource( 2 )
+nodes/fragment/11/position = Vector2( 794, 450 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 4, 1, 3, 0, 4, 0, 4, 0, 0, 0, 5, 0, 6, 0, 6, 0, 7, 0, 7, 0, 8, 0, 9, 0, 10, 0, 10, 0, 11, 0, 11, 0, 7, 1, 8, 0, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=12]
+shader = SubResource( 11 )
+
+[sub_resource type="DynamicFont" id=13]
+size = 34
+font_data = ExtResource( 12 )
+
+[node name="Game" type="Node2D"]
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 286.25, 511.75 )
+scale = Vector2( 0.641583, 0.70095 )
+texture = ExtResource( 8 )
+
+[node name="Shader" type="Sprite" parent="."]
+material = SubResource( 12 )
+scale = Vector2( 0.64437, 0.696538 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="grid" type="Node2D" parent="."]
+script = ExtResource( 1 )
+width = 4
+height = 5
+xStart = 96
+yStart = 832
+offset = 128
+background = ExtResource( 2 )
+
+[node name="Effects" type="Node2D" parent="."]
+
+[node name="HUD" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="HUD"]
+margin_top = -4.0
+margin_right = 576.0
+margin_bottom = 40.0
+color = Color( 0, 0, 0, 0.572549 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="HUD"]
+position = Vector2( 22, 19 )
+scale = Vector2( 0.0178109, 0.0168394 )
+texture = ExtResource( 13 )
+
+[node name="Score" type="Label" parent="HUD"]
+margin_left = 39.0
+margin_right = 566.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 13 )
+text = "Points: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = -11.361
+autoplay = true
+script = ExtResource( 5 )
+
+[node name="1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+volume_db = 22.722
+
+[node name="2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+volume_db = 23.597
+
+[node name="Camera" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+script = ExtResource( 11 )
+
+[node name="Explosion" parent="." instance=ExtResource( 10 )]
+visible = false
